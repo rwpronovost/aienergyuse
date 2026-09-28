@@ -1,5 +1,5 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<!-- Layout: single-column briefing with a sticky section nav; report-like rhythm of rule-divided sections, calculator as the one "tool" moment -->
+<!-- Layout: single-column briefing with a sticky section nav; report-like rhythm of rule-divided sections, calculator as the one "tool" moment. Revised per external accuracy review, Sept 2026. -->
 <title>AI Footprint Briefing</title>
 <style>
 :root{
@@ -42,6 +42,8 @@ nav.secnav a:hover{color:var(--ink)}
 header.hero{padding:44px 0 28px;border-bottom:1px solid var(--line)}
 header.hero .eyebrow{margin-bottom:14px;display:block}
 header.hero .dek{color:var(--sub);font-size:1.05rem;max-width:58ch}
+header.hero .revnote{font-size:.78rem;color:var(--sub);margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+header.hero .revnote a{color:var(--sub);text-decoration:underline}
 
 section{padding:40px 0;border-bottom:1px solid var(--line)}
 section:last-of-type{border-bottom:none}
@@ -50,12 +52,12 @@ section .kicker .idx{font-family:'IBM Plex Mono',monospace;color:var(--sub);font
 
 /* consensus callout */
 .consensus{background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:26px 28px;display:flex;flex-direction:column;gap:14px}
-.consensus .figure{font-family:'IBM Plex Mono',monospace;font-size:2.4rem;color:var(--energy);line-height:1}
-.consensus .figure small{font-size:1rem;color:var(--sub);font-family:'IBM Plex Sans',sans-serif}
+.consensus .figure{font-family:'IBM Plex Mono',monospace;font-size:2.2rem;color:var(--energy);line-height:1.1}
+.consensus .figure small{font-size:1rem;color:var(--sub);font-family:'IBM Plex Sans',sans-serif;display:block;margin-top:4px}
 .consensus-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:6px}
 @media (max-width:520px){.consensus-grid{grid-template-columns:1fr}}
 .consensus-grid .cell{border-top:2px solid var(--line);padding-top:10px}
-.consensus-grid .cell .v{font-family:'IBM Plex Mono',monospace;font-size:1.15rem;color:var(--ink)}
+.consensus-grid .cell .v{font-family:'IBM Plex Mono',monospace;font-size:1.1rem;color:var(--ink)}
 .consensus-grid .cell .l{font-size:.82rem;color:var(--sub)}
 
 /* myth/reality toggle */
@@ -73,8 +75,8 @@ section .kicker .idx{font-family:'IBM Plex Mono',monospace;color:var(--sub);font
 .claimblock{margin-bottom:2px}
 
 /* comparison chart */
-.cmp-list{display:flex;flex-direction:column;gap:10px;margin:22px 0}
-.cmp-row{display:grid;grid-template-columns:168px 1fr 68px;align-items:center;gap:10px}
+.cmp-list{display:flex;flex-direction:column;gap:10px;margin:22px 0 6px}
+.cmp-row{display:grid;grid-template-columns:168px 1fr 84px;align-items:center;gap:10px}
 @media (max-width:560px){.cmp-row{grid-template-columns:1fr;gap:4px}}
 .cmp-label{font-size:.86rem;color:var(--ink)}
 .cmp-label .tiny{display:block;font-size:.72rem;color:var(--sub)}
@@ -82,15 +84,30 @@ section .kicker .idx{font-family:'IBM Plex Mono',monospace;color:var(--sub);font
 .cmp-bar{position:absolute;left:0;top:0;height:100%;border-radius:2px 0 0 2px}
 .cmp-bar.ai{background:var(--energy)}
 .cmp-bar.other{background:var(--water)}
-.cmp-value{font-family:'IBM Plex Mono',monospace;font-size:.82rem;text-align:right;color:var(--ink)}
+.cmp-range{position:absolute;top:3px;bottom:3px;border-radius:6px;opacity:.9}
+.cmp-range.ai{background:var(--energy)}
+.cmp-range.other{background:var(--water)}
+.cmp-value{font-family:'IBM Plex Mono',monospace;font-size:.8rem;text-align:right;color:var(--ink)}
 @media (max-width:560px){.cmp-value{text-align:left}}
-.cmp-legend{display:flex;gap:20px;font-size:.78rem;color:var(--sub);margin-bottom:6px}
+.cmp-legend{display:flex;flex-wrap:wrap;gap:18px;font-size:.78rem;color:var(--sub);margin-bottom:6px}
 .cmp-legend span{display:inline-flex;align-items:center;gap:6px}
 .cmp-legend i{width:10px;height:10px;border-radius:2px;display:inline-block}
 .cmp-legend i.ai{background:var(--energy)}
 .cmp-legend i.other{background:var(--water)}
+.cmp-legend i.range{background:var(--sub);opacity:.6;border-radius:5px}
+.cmp-axis{display:grid;grid-template-columns:168px 1fr 84px;gap:10px;margin-bottom:4px}
+@media (max-width:560px){.cmp-axis{display:none}}
+.cmp-axis-track{position:relative;height:16px}
+.cmp-axis-track b{position:absolute;top:0;font-family:'IBM Plex Mono',monospace;font-size:.66rem;font-weight:400;color:var(--sub);transform:translateX(-50%);white-space:nowrap}
+.cmp-axis-track b:first-child{transform:translateX(0)}
+.cmp-axis-track b:last-child{transform:translateX(-100%)}
 .callout{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--land);border-radius:4px;padding:16px 18px;font-size:.92rem;margin-top:18px}
 .callout b{color:var(--ink)}
+.bounds-wrap{overflow-x:auto;margin:16px 0}
+table.bounds{border-collapse:collapse;width:100%;min-width:560px;font-size:.84rem}
+table.bounds th,table.bounds td{text-align:left;padding:8px 12px 8px 0;border-top:1px solid var(--line);vertical-align:top}
+table.bounds th{font-family:'IBM Plex Mono',monospace;font-size:.7rem;text-transform:uppercase;letter-spacing:.04em;color:var(--sub);border-top:none}
+table.bounds td:first-child{font-weight:600;white-space:nowrap}
 
 /* calculator */
 .calc{background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:26px 28px;display:flex;flex-direction:column;gap:20px}
@@ -104,6 +121,7 @@ input[type="range"]{-webkit-appearance:none;appearance:none;width:100%;height:4p
 .calc-out .o .v{font-family:'IBM Plex Mono',monospace;font-size:1.5rem;color:var(--water)}
 .calc-out .o .l{font-size:.78rem;color:var(--sub)}
 .calc-note{font-size:.82rem;color:var(--sub);border-top:1px solid var(--line);padding-top:14px}
+.calc-flag{font-size:.82rem;background:rgba(176,118,31,.12);border:1px solid var(--energy);border-radius:4px;padding:10px 12px;color:var(--ink)}
 
 /* watch list */
 .watchitem{display:grid;grid-template-columns:44px 1fr;gap:16px;padding:20px 0;border-top:1px solid var(--line)}
@@ -127,7 +145,7 @@ ol.discuss li .qn{font-family:'IBM Plex Mono',monospace;color:var(--sub);font-si
 @media (max-width:560px){.srcrow{grid-template-columns:1fr;gap:4px}}
 .srcrow .name a{font-weight:600}
 .srcrow .note{color:var(--sub);font-size:.92rem}
-.grade{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.04em;padding:2px 6px;border-radius:2px;margin-left:6px;vertical-align:1px}
+.grade{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:.64rem;letter-spacing:.03em;padding:2px 6px;border-radius:2px;margin-left:6px;vertical-align:1px;white-space:nowrap}
 .grade.strong{background:var(--good);color:#0d1a12}
 .grade.mixed{background:var(--energy);color:#241300}
 .grade.weak{background:var(--bad);color:#210a06}
@@ -139,7 +157,7 @@ footer{padding:30px 0 10px;color:var(--sub);font-size:.82rem}
 
 <nav class="secnav">
   <a href="#top">Top</a>
-  <a href="#consensus">The one number</a>
+  <a href="#consensus">The estimates</a>
   <a href="#mythreality">Myth vs. reality</a>
   <a href="#compare">Stack it up</a>
   <a href="#personal">Your own habit</a>
@@ -155,28 +173,29 @@ footer{padding:30px 0 10px;color:var(--sub);font-size:.82rem}
   <header class="hero" id="top">
     <span class="eyebrow">A staff briefing on AI &amp; energy</span>
     <h1>How much does AI actually cost the planet?</h1>
-    <p class="dek">Some of your colleagues are excited to bring AI into their classrooms. Others have stopped using it over what they've heard about its energy and water use. Both are working from real numbers &mdash; usually not the same ones. This briefing lays out what the underlying research actually says, where the two camps talk past each other, and where the real disagreement is.</p>
+    <p class="dek">Some of your colleagues are excited to bring AI into their classrooms. Others have real concerns about its energy and water use. This briefing tries to separate four questions that usually get collapsed into one: how much energy a single task uses, how large AI's aggregate footprint is, what burden falls on the specific communities hosting that infrastructure, and whether a given classroom use is worth its cost. The numbers below are best current estimates, not settled facts &mdash; and several of them are corrections to an earlier draft of this same page.</p>
+    <p class="revnote">Last reviewed September 28, 2026, against an independent accuracy review that corrected a number of overstated or mislabeled figures in the first draft. See <a href="#sources">Sources</a> for specifics.</p>
   </header>
 
   <section id="consensus">
-    <div class="kicker"><span class="idx">01</span><h2>The one number nearly everyone agrees on</h2></div>
-    <p>Independent measurements from <a href="https://cloud.google.com/blog/products/infrastructure/measuring-the-environmental-impact-of-ai-inference" target="_blank" rel="noopener">Google's own published methodology</a>, the AI research group <a href="https://epoch.ai/gradient-updates/how-much-energy-does-chatgpt-use" target="_blank" rel="noopener">Epoch AI</a>, and MIT Technology Review's 2025 investigation all land in the same range for a typical text prompt to a chatbot like ChatGPT or Gemini:</p>
+    <div class="kicker"><span class="idx">01</span><h2>Where the recent estimates land</h2></div>
+    <p>A handful of separately run 2025 estimates for a short, ordinary chatbot text response &mdash; a quick question, not a long document or a multi-step agent task &mdash; land in a similar order of magnitude. That's useful context. It is not a verified industry consensus: each number describes a different model, on a different date, measured a different way, and none of it covers heavier workloads like reasoning or agentic tasks (more on that below).</p>
     <div class="consensus">
-      <div class="figure">0.24&ndash;0.4 <small>watt-hours per prompt</small></div>
-      <p style="margin:0">Google's own published figure for a median Gemini text prompt, 0.24 Wh, is the closest thing to a company-verified number in this whole debate. Google describes it as roughly the energy of watching TV for nine seconds. A 2026 report from the United Nations University puts a working average slightly higher, at 0.42 Wh, because it blends in longer and more complex prompts &mdash; but even that stays in the same order of magnitude.</p>
+      <div class="figure">0.03&ndash;0.4 Wh<small>several separate 2025 estimates for a short text response</small></div>
+      <p style="margin:0">Google's disclosed figure &mdash; 0.24 Wh for the median Gemini Apps text prompt in May 2025 &mdash; is the only one of these based on the company's own internal measurement rather than outside modeling. Google's own write-up is explicit that the data hasn't been independently verified and doesn't describe every prompt or future performance. Epoch AI's roughly 0.3 Wh is a <em>modeled</em> estimate for GPT-4o under stated assumptions, not a direct measurement. The UN University's 2026 report uses 0.42 Wh as a representative planning figure for its own calculations. Treat these as three separate estimates with a name, a date, and a method attached &mdash; not one settled number.</p>
       <div class="consensus-grid">
-        <div class="cell"><div class="v">~0.3 Wh</div><div class="l">A plain, non-AI web search (per the UN University report) &mdash; the same ballpark as an AI prompt, not a fraction of it</div></div>
-        <div class="cell"><div class="v">2.9 Wh</div><div class="l">A typical AI-generated image &mdash; about 8&ndash;10&times; a text prompt</div></div>
-        <div class="cell"><div class="v">90&ndash;415+ Wh</div><div class="l">A short AI-generated video clip &mdash; 200&ndash;1,000&times; a text prompt</div></div>
-        <div class="cell"><div class="v">50&ndash;70 GWh</div><div class="l">Estimated electricity to train one frontier model like GPT-4, once, over ~100 days</div></div>
+        <div class="cell"><div class="v">~0.3 Wh <span style="font-weight:400;color:var(--sub);font-family:'IBM Plex Sans',sans-serif;font-size:.8rem">(2009)</span></div><div class="l">Google's original per-search energy estimate &mdash; still the most commonly cited search baseline, and never publicly updated since</div></div>
+        <div class="cell"><div class="v">~2.9 Wh</div><div class="l">Average AI-generated image across a set of tested open models (Luccioni et al.) &mdash; individual models vary considerably</div></div>
+        <div class="cell"><div class="v">0.14&ndash;400+ Wh</div><div class="l">Full reported cross-model range for a short AI-generated video clip (UN University report) &mdash; not a single typical value</div></div>
+        <div class="cell"><div class="v">50&ndash;70 GWh</div><div class="l">Estimated electricity to train one frontier model like GPT-4, once, over ~100 days &mdash; an estimate, since OpenAI hasn't disclosed the real figure</div></div>
       </div>
     </div>
-    <p style="margin-top:18px">Notice what that second row does to a popular claim: the idea that a single ChatGPT query burns 10&times; the energy of a Google search traces back to an unsourced 2023 estimate that no one has been able to pin down. The more careful recent numbers put ordinary text search and an ordinary AI text query in roughly the same place.</p>
+    <p style="margin-top:18px">That first row is worth sitting with. The familiar claim that an AI query burns 10&times; the energy of a web search traces to an identifiable 2023 estimate (about 2.9 Wh, modeled from a SemiAnalysis assumption about ChatGPT's early infrastructure) compared against Google's 0.3 Wh search figure &mdash; which dates to 2009. Comparing a 2023 estimate for one system against a 16-year-old figure for a completely different, long-since-rebuilt one doesn't reliably establish a multiplier in either direction. Nobody has published a rigorous, current, apples-to-apples comparison of a search and an AI query. That's worth noticing the next time someone states one with confidence &mdash; including an earlier draft of this page, which claimed the opposite overstatement.</p>
   </section>
 
   <section id="mythreality">
     <div class="kicker"><span class="idx">02</span><h2>Myth vs. reality, from both directions</h2></div>
-    <p>Pick the perspective closer to your own. Same underlying research either way &mdash; the claims people repeat just tend to run in opposite directions.</p>
+    <p>Pick the perspective closer to your own. These aren't two settled positions where one side has already won &mdash; they're claims worth checking against what the underlying research actually supports.</p>
     <div class="toggle" role="group">
       <button type="button" aria-pressed="true" data-panel="excited">If you're excited about AI</button>
       <button type="button" aria-pressed="false" data-panel="wary">If you're wary of AI</button>
@@ -186,17 +205,17 @@ footer{padding:30px 0 10px;color:var(--sub);font-size:.82rem}
       <div class="claimrow">
         <div><span class="tag claim">Claim</span></div>
         <div class="claimblock"><div class="claimtext">"A single AI prompt is basically free &mdash; it's not worth worrying about."</div>
-        <div><span class="tag reality">Reality</span> Mostly true for a text prompt in isolation: 0.3 Wh is about 0.0005% of an average American's daily emissions, per climate writer Andy Masley's math. But that math describes one prompt, not what happens when a school of 500 students each sends dozens of prompts a day, every school day, for the rest of the year. Small numbers still accumulate.</div></div>
+        <div><span class="tag reality">Reality</span> Roughly true for an ordinary text prompt in isolation: at around 0.3 Wh, that's about 0.0005% of an average American's daily emissions, per climate writer Andy Masley's math. But that describes one prompt, not what happens when a school of 500 students each sends dozens of prompts a day, every school day, all year &mdash; and it doesn't describe a longer, reasoning-heavy, or agentic request, which can use far more. Small numbers still accumulate, and not every AI task is small.</div></div>
       </div>
       <div class="claimrow">
         <div><span class="tag claim">Claim</span></div>
         <div class="claimblock"><div class="claimtext">"AI will make the grid greener on net &mdash; it's a climate solution, not a climate problem."</div>
-        <div><span class="tag reality">Reality</span> The International Energy Agency does project that AI-optimized industry and grids could cut more emissions than AI's own electricity use adds, by 2035. That's a real, cited projection &mdash; and also a projection, resting on assumptions about how AI gets deployed. It doesn't cancel out the data centers being built and powered by gas and coal right now.</div></div>
+        <div><span class="tag reality">Reality</span> The International Energy Agency does project that AI-enabled efficiency elsewhere in the economy could exceed the emissions from data centers' own electricity use, by 2035. That's a real, cited projection &mdash; and also a projection, resting on assumptions about how AI actually gets deployed and adopted. It doesn't cancel out the data centers being built and powered by gas and coal right now, and IEA's own 2026 update is explicit that this is a possibility, not a guarantee.</div></div>
       </div>
       <div class="claimrow">
         <div><span class="tag claim">Claim</span></div>
         <div class="claimblock"><div class="claimtext">"Efficiency is improving so fast the footprint is basically shrinking."</div>
-        <div><span class="tag reality">Reality</span> Per-query efficiency really is improving fast &mdash; Google reported its median Gemini prompt used 33&times; less energy in May 2025 than a year earlier. But total AI electricity demand is still projected to climb, because usage is growing faster than efficiency gains can offset it. Economists call this the rebound effect, or Jevons Paradox: cheaper computing invites more computing.</div></div>
+        <div><span class="tag reality">Reality</span> Per-query efficiency really is improving fast &mdash; Google reported its median Gemini prompt used 33&times; less energy in May 2025 than a year earlier. But total AI electricity demand is still projected to climb, because falling costs tend to invite more use, a dynamic economists call the rebound effect. That's a documented tendency, not an iron law &mdash; but it does mean a given efficiency gain is not, by itself, a reliable reason to expect AI's <em>total</em> footprint to shrink.</div></div>
       </div>
     </div>
 
@@ -204,79 +223,101 @@ footer{padding:30px 0 10px;color:var(--sub);font-size:.82rem}
       <div class="claimrow">
         <div><span class="tag claim">Claim</span></div>
         <div class="claimblock"><div class="claimtext">"Every ChatGPT query is a small climate disaster."</div>
-        <div><span class="tag reality">Reality</span> A single text prompt costs roughly what a microwave uses in one second. You'd have to send about 2,000 prompts in a day to raise your personal emissions by 1%. The individual-prompt framing that circulates online overstates the per-use case by a wide margin &mdash; the real story is elsewhere (see below).</div></div>
+        <div><span class="tag reality">Reality</span> An ordinary short text prompt costs roughly what a microwave uses in a second or two. You'd need something like 2,000 such prompts in a day to raise your personal emissions by 1%, by Andy Masley's math. The individual-prompt framing that circulates online overstates the case for an ordinary text query by a wide margin &mdash; though it understates the case for image or video generation, and for reasoning or agentic tasks, which can use one to three orders of magnitude more (see the chart below).</div></div>
       </div>
       <div class="claimrow">
         <div><span class="tag claim">Claim</span></div>
         <div class="claimblock"><div class="claimtext">"Training one model creates hundreds of thousands of kilograms of CO&#8322;."</div>
-        <div><span class="tag reality">Reality</span> This traces to a widely repeated 2019 Strubell et al. figure that's frequently misapplied &mdash; the original number described a much larger neural-architecture-search process across many models, not one single training run. The real number for training a single frontier model is still large: the UN University's 2026 report estimates roughly 25,000&ndash;42,000 tonnes CO&#8322;e to train a model on the scale of GPT-4 or GPT-5. That's genuinely big &mdash; just a different (and better-sourced) number than the one that usually gets quoted.</div></div>
+        <div><span class="tag reality">Reality</span> The widely repeated 2019 Strubell et al. figure this traces to actually described a neural-architecture-search process across many models, not one training run &mdash; so the citation is commonly misapplied. But don't read that as reassurance: the UN University's 2026 report estimates GPT-4-scale training at roughly 25,000 tonnes CO&#8322;e (25 million kilograms), and a GPT-5-scale model at roughly 42,000 tonnes &mdash; both far larger than the misattributed figure, not smaller. That GPT-5 number is explicitly a scaling projection, since no real GPT-5 training-energy data has been published. The correction here isn't "it's not that bad." It's "the commonly cited source was wrong, and the real number for a frontier model is worse."</div></div>
       </div>
       <div class="claimrow">
         <div><span class="tag claim">Claim</span></div>
         <div class="claimblock"><div class="claimtext">"AI data centers are draining water supplies and burning coal, full stop."</div>
-        <div><span class="tag reality">Reality</span> This is true in specific, documented places &mdash; not everywhere uniformly. Microsoft's Netherlands data center used 84 million liters of water in a drought year, far above its own earlier estimate. Ireland's data centers now use more electricity than all of its urban households combined, prompting a construction pause around Dublin. The impact is real but concentrated and site-specific &mdash; which is exactly why where a data center gets built matters as much as how big it is.</div></div>
+        <div><span class="tag reality">Reality</span> True in specific, documented places &mdash; not everywhere uniformly, and not always for the reason assumed. Microsoft's Netherlands data center used 84 million liters of water in 2021, a drought year, far above its own earlier estimate; contemporaneous reporting notes that construction activity, not just operations, contributed to that total. In Ireland, data centers of all kinds accounted for about 23% of the country's metered electricity in 2025, versus about 18% for all urban households combined, per Ireland's Central Statistics Office &mdash; a real and striking comparison, though it covers all data centers, not AI-specific ones. Ireland's grid regulator adopted a stricter new connection policy for data centers in December 2025, rather than a blanket construction ban. The impact is real but concentrated and site-specific, which is exactly why where infrastructure gets built matters as much as how big it is.</div></div>
       </div>
     </div>
   </section>
 
   <section id="compare">
     <div class="kicker"><span class="idx">03</span><h2>How does a chatbot stack up against everything else?</h2></div>
-    <p>Everything below is converted to the same unit &mdash; grams of CO&#8322;e &mdash; so it's comparable at a glance. Bars run on a logarithmic scale; the range here spans more than five orders of magnitude, so a straight scale would make everything except the burger invisible.</p>
-    <div class="cmp-legend"><span><i class="ai"></i>AI-related</span><span><i class="other"></i>Everything else</span></div>
+    <p>Everything below is converted to grams of CO&#8322;e so the order of magnitude is comparable at a glance. Bars are positioned on a real logarithmic scale, calculated directly from each value (the axis below the chart shows the scale). That comparability has limits &mdash; the table underneath explains what each figure actually measures, since they don't all draw the same boundary around "impact." Two entries are shown as ranges rather than single bars, because the underlying research reports a range, not one typical number.</p>
+    <div class="cmp-legend">
+      <span><i class="ai"></i>AI-related</span>
+      <span><i class="other"></i>Everything else</span>
+      <span><i class="range"></i>Reported range, not a single value</span>
+    </div>
+    <div class="cmp-axis">
+      <div></div>
+      <div class="cmp-axis-track">
+        <b style="left:9.38%">0.1 g</b>
+        <b style="left:27.31%">1 g</b>
+        <b style="left:45.25%">10 g</b>
+        <b style="left:63.18%">100 g</b>
+        <b style="left:81.11%">1,000 g</b>
+        <b style="left:99.05%">10,000 g</b>
+      </div>
+      <div></div>
+    </div>
     <div class="cmp-list">
       <div class="cmp-row">
-        <div class="cmp-label">1 plain web search<span class="tiny">no AI involved</span></div>
-        <div class="cmp-track"><div class="cmp-bar other" style="width:18.3%"></div></div>
+        <div class="cmp-label">1 plain web search<span class="tiny">Google's 2009 estimate</span></div>
+        <div class="cmp-track"><div class="cmp-bar other" style="width:12.0%"></div></div>
         <div class="cmp-value">0.14 g</div>
       </div>
       <div class="cmp-row">
-        <div class="cmp-label">1 AI chatbot text prompt<span class="tiny">ChatGPT / Gemini-style</span></div>
-        <div class="cmp-track"><div class="cmp-bar ai" style="width:21%"></div></div>
+        <div class="cmp-label">1 AI chatbot text prompt<span class="tiny">ordinary short response, 2025 estimates</span></div>
+        <div class="cmp-track"><div class="cmp-range ai" style="left:0%;width:14.78%"></div></div>
         <div class="cmp-value">0.03&ndash;0.2 g</div>
       </div>
       <div class="cmp-row">
-        <div class="cmp-label">1 AI-generated image<span class="tiny">standard resolution</span></div>
-        <div class="cmp-track"><div class="cmp-bar ai" style="width:34%"></div></div>
+        <div class="cmp-label">1 AI-generated image<span class="tiny">average across tested models</span></div>
+        <div class="cmp-track"><div class="cmp-bar ai" style="width:29.36%"></div></div>
         <div class="cmp-value">~1.3 g</div>
       </div>
       <div class="cmp-row">
-        <div class="cmp-label">1 hour of short-form video<span class="tiny">TikTok / Reels, rough estimate</span></div>
-        <div class="cmp-track"><div class="cmp-bar other" style="width:52%"></div></div>
-        <div class="cmp-value">~15&ndash;20 g</div>
-      </div>
-      <div class="cmp-row">
-        <div class="cmp-label">1 hour streaming Netflix<span class="tiny">global average grid</span></div>
-        <div class="cmp-track"><div class="cmp-bar other" style="width:58%"></div></div>
+        <div class="cmp-label">1 hour streaming Netflix<span class="tiny">IEA's 2019 estimate</span></div>
+        <div class="cmp-track"><div class="cmp-bar other" style="width:55.22%"></div></div>
         <div class="cmp-value">36 g</div>
       </div>
       <div class="cmp-row">
-        <div class="cmp-label">1 short AI-generated video clip<span class="tiny">a few seconds, high settings</span></div>
-        <div class="cmp-track"><div class="cmp-bar ai" style="width:66%"></div></div>
-        <div class="cmp-value">40&ndash;190 g</div>
+        <div class="cmp-label">1 short AI-generated video clip<span class="tiny">full reported cross-model range</span></div>
+        <div class="cmp-track"><div class="cmp-range ai" style="left:5.40%;width:62.36%"></div></div>
+        <div class="cmp-value">0.06&ndash;180 g</div>
       </div>
       <div class="cmp-row">
-        <div class="cmp-label">Driving 1 mile<span class="tiny">average car, EPA</span></div>
-        <div class="cmp-track"><div class="cmp-bar other" style="width:75%"></div></div>
+        <div class="cmp-label">Driving 1 mile<span class="tiny">average car, EPA tailpipe estimate</span></div>
+        <div class="cmp-track"><div class="cmp-bar other" style="width:73.98%"></div></div>
         <div class="cmp-value">400 g</div>
       </div>
       <div class="cmp-row">
-        <div class="cmp-label">Flying 1 mile<span class="tiny">short/medium-haul, economy</span></div>
-        <div class="cmp-track"><div class="cmp-bar other" style="width:74%"></div></div>
+        <div class="cmp-label">Flying 1 mile<span class="tiny">domestic flight, economy</span></div>
+        <div class="cmp-track"><div class="cmp-bar other" style="width:73.90%"></div></div>
         <div class="cmp-value">396 g</div>
       </div>
       <div class="cmp-row">
-        <div class="cmp-label">1 quarter-pound beef burger<span class="tiny">global average beef</span></div>
-        <div class="cmp-track"><div class="cmp-bar other" style="width:98%"></div></div>
-        <div class="cmp-value">~11,000 g</div>
+        <div class="cmp-label">1 beef patty<span class="tiny">113 g, dedicated beef herd</span></div>
+        <div class="cmp-track"><div class="cmp-bar other" style="width:100%"></div></div>
+        <div class="cmp-value">~11,300 g</div>
       </div>
     </div>
-    <div class="callout">Streaming video had this exact argument a few years ago. A viral 2019 claim that thirty minutes of Netflix emits as much as driving four miles turned out, once the IEA checked the underlying assumptions, to be <b>overstated by roughly 90&times;</b>. The corrected number, 36 g CO&#8322;e per hour, is what's plotted above. Worth aiming the same skepticism at any of these figures &mdash; including the AI ones.</div>
-    <p style="margin-top:18px">The pattern that jumps out: almost everything you already do on a screen &mdash; searching, prompting a chatbot, even a full hour of video &mdash; sits in the same narrow band, a few grams to a few dozen grams of CO&#8322;e. Physical, biological things (driving, flying, eating meat) are a different order of magnitude entirely. If the goal is actually reducing a footprint, the parking lot and the produce aisle outrank the prompt history.</p>
+    <div class="bounds-wrap">
+      <table class="bounds">
+        <tr><th>Entry</th><th>What it actually measures</th></tr>
+        <tr><td>AI text / image</td><td>Electricity used, multiplied by an assumed grid carbon intensity &mdash; no allocated training, device, or hardware-manufacturing footprint</td></tr>
+        <tr><td>AI video</td><td>Same method as above; the huge range reflects real differences across models and settings, not just uncertainty</td></tr>
+        <tr><td>Netflix</td><td>A 2019 estimate that does include devices, home networks, and data centers together</td></tr>
+        <tr><td>Driving</td><td>EPA's tailpipe CO&#8322; only &mdash; no manufacturing or fuel-extraction footprint</td></tr>
+        <tr><td>Flying</td><td>Includes an added multiplier for aviation's extra warming effect at altitude, which the driving and AI figures don't have an equivalent for</td></tr>
+        <tr><td>Beef</td><td>Full agricultural supply-chain footprint (feed, land use, methane) &mdash; a genuinely different kind of accounting than "electricity &times; grid factor"</td></tr>
+      </table>
+    </div>
+    <div class="callout">Streaming video had this exact argument a few years ago. A viral 2019 claim that thirty minutes of Netflix emits as much as driving four miles turned out, once the IEA checked the underlying assumptions, to be <b>overstated by roughly 90&times;</b>. The corrected number, 36 g CO&#8322;e per hour, is what's plotted above. The same skepticism is worth aiming at every figure on this page, including the ones that favor a reassuring conclusion.</div>
+    <p style="margin-top:18px">The pattern that survives the caveats: an ordinary search, chatbot reply, or AI image sits down near hundredths to a few grams of CO&#8322;e; even a full hour of streaming or a heavier AI video sits in the tens of grams. Driving, flying, and eating meat start roughly where that cluster ends and run one to two orders of magnitude higher. None of these are measured on quite the same terms &mdash; see the table above &mdash; but the gap between "ordinary digital task" and "physical, biological thing" is wide enough to survive that imprecision.</p>
   </section>
 
   <section id="personal">
     <div class="kicker"><span class="idx">04</span><h2>What your own habit adds up to</h2></div>
-    <p>Now put a number on your own use, and set it against three things people already have an intuitive feel for.</p>
+    <p>Now put a number on your own use, and set it against two things people already have an intuitive feel for. This models ordinary short text prompts only &mdash; a long document, a reasoning-heavy request, or an AI agent taking several actions on your behalf can use well more than the figure below per query.</p>
     <div class="calc">
       <div class="row">
         <div class="headline"><span>Your text prompts per day</span><b id="out-p-prompts">15</b></div>
@@ -289,17 +330,17 @@ footer{padding:30px 0 10px;color:var(--sub);font-size:.82rem}
 
       <div class="calc-out">
         <div class="o"><div class="v" id="res-p-car">&mdash;</div><div class="l">Miles driven in an average car</div></div>
-        <div class="o"><div class="v" id="res-p-flight">&mdash;</div><div class="l">Miles flown, short/medium-haul economy</div></div>
-        <div class="o"><div class="v" id="res-p-burger">&mdash;</div><div class="l">Quarter-pound beef burgers</div></div>
+        <div class="o"><div class="v" id="res-p-flight">&mdash;</div><div class="l">Miles flown, domestic economy</div></div>
+        <div class="o"><div class="v" id="res-p-burger">&mdash;</div><div class="l">113 g beef patties</div></div>
       </div>
-      <div class="calc-note">Underlying totals: <span id="res-p-energy">&mdash;</span> of electricity, about <span id="res-p-carbon">&mdash;</span> of CO&#8322;e. Car and flight figures use 400 g and 396 g CO&#8322;e per mile respectively (EPA; UK DESNZ conversion factors via Our World in Data) &mdash; mile for mile, flying alone turns out to be almost exactly as carbon-intensive as driving alone, which surprises most people. The burger figure uses the global average footprint of beef from a dedicated beef herd, about 100 kg CO&#8322;e per kilogram (Poore &amp; Nemecek, 2018, <em>Science</em>, via Our World in Data), applied to a 113 g (quarter-pound) raw patty.</div>
+      <div class="calc-note">Underlying totals: <span id="res-p-energy">&mdash;</span> of electricity, about <span id="res-p-carbon">&mdash;</span> of CO&#8322;e, using an illustrative 0.35 Wh per prompt (this page's working assumption for an ordinary short response, not a validated average) and a global-average grid intensity of about 450 g CO&#8322;e/kWh. Car and flight figures use 400 g CO&#8322;e/mile (EPA tailpipe estimate) and 396 g CO&#8322;e/mile (a <em>domestic</em> economy flight specifically, UK DESNZ conversion factors via Our World in Data, which include an added multiplier for aviation's extra warming effect at altitude) &mdash; for a domestic flight, that lands close to driving alone, though a longer international flight has a meaningfully lower per-mile footprint by the same source. The patty figure applies the global-average footprint of beef from a dedicated beef herd, about 100 kg CO&#8322;e per kilogram including its full supply chain (Poore &amp; Nemecek, 2018, <em>Science</em>, via Our World in Data), to a 113 g raw patty &mdash; dairy-herd beef, the bun, and cooking aren't included.</div>
     </div>
-    <p style="margin-top:18px">Notice how many prompts it takes to equal even one burger. That gap is the whole argument in miniature: the individual-prompt framing genuinely doesn't move the needle much for one person.</p>
+    <p style="margin-top:18px">Notice how many prompts it takes to equal even one beef patty. That gap is the whole argument in miniature for ordinary text use &mdash; though it says nothing about heavier AI tasks, or about the aggregate picture below.</p>
   </section>
 
   <section id="calculator">
     <div class="kicker"><span class="idx">05</span><h2>Run the numbers on your own use case</h2></div>
-    <p>Zoom out from your own habit to the aggregate, schoolwide picture. The math underneath uses the mid-range figures above &mdash; treat the result as an order-of-magnitude estimate, not a measurement. Real figures vary several-fold depending on which model and settings are actually in use.</p>
+    <p>Zoom out from your own habit to the aggregate, schoolwide picture. This is a single illustrative scenario built from fixed per-task assumptions, not a validated model of any real school's mixed use &mdash; a building that leans toward reasoning-heavy or agentic tools would use meaningfully more than this suggests, task for task.</p>
     <div class="calc">
       <div class="row">
         <div class="headline"><span>Students using AI tools</span><b id="out-students">25</b></div>
@@ -327,108 +368,116 @@ footer{padding:30px 0 10px;color:var(--sub);font-size:.82rem}
         <div class="o"><div class="v" id="res-carbon">&mdash;</div><div class="l">Estimated CO&#8322;e, at global-average grid intensity</div></div>
         <div class="o"><div class="v" id="res-compare">&mdash;</div><div class="l">Roughly equal to driving a car this far</div></div>
       </div>
-      <div class="calc-note">Assumes 0.35 Wh per text prompt, 2.9 Wh per image, and 250 Wh per video clip (mid-range figures from the sources below), at a global-average grid carbon intensity of about 450 g CO&#8322;e/kWh and 350 g CO&#8322;e per mile driven. Video generation dominates the total the moment it's used at all &mdash; try raising it from 0 to see how fast that changes.</div>
+      <div class="calc-flag">This calculator uses 0.35 Wh per text prompt (an illustrative figure, not a validated schoolwide average), 2.9 Wh per image (an average across tested open models, which vary considerably), and 250 Wh per video clip &mdash; a single scenario point inside the UN University report's actual cross-model range of roughly 0.14 to 400+ Wh, not a typical clip. A real school's mix of models and task types would shift every one of these, sometimes by an order of magnitude.</div>
+      <div class="calc-note">Carbon uses a global-average grid intensity of about 450 g CO&#8322;e/kWh and 400 g CO&#8322;e/mile driven (EPA tailpipe estimate, matching the personal calculator above). Video generation dominates the total the moment it's used at all &mdash; try raising it from 0 to see how fast that changes.</div>
     </div>
   </section>
 
   <section id="reduce">
     <div class="kicker"><span class="idx">06</span><h2>Cutting the footprint down</h2></div>
-    <p>None of this argues for using AI tools less thoughtfully &mdash; it argues for using them more deliberately. In order of how much difference each one actually makes:</p>
+    <p>None of this argues for using AI tools less thoughtfully &mdash; it argues for using them more deliberately. Roughly in order of how much difference each one makes:</p>
     <div class="watchitem">
       <div class="num advice">1</div>
-      <div><h3>Ask whether you need AI for this task at all</h3><p>The biggest lever isn't a setting, it's the decision before you open the tool. A quick fact lookup, a calculation, or a question you could answer from a textbook doesn't need a language model &mdash; and skipping it is the one habit that reduces AI energy use to zero for that task, not just by a percentage.</p></div>
+      <div><h3>Ask whether you need AI for this task at all</h3><p>The biggest lever isn't a setting, it's the decision before you open the tool. A quick fact lookup, a calculation, or a question you could answer from a textbook doesn't need a language model &mdash; and skipping it removes that task's AI energy use entirely, not just reduces it.</p></div>
     </div>
     <div class="watchitem">
       <div class="num advice">2</div>
-      <div><h3>Default to text, and treat image and video generation as a deliberate choice</h3><p>This is the single highest-leverage setting, because the gap between tasks is 10&ndash;1,000&times;, not a few percent. Save image generation for when a real image is the point of the assignment, and treat video generation, which can cost as much as an hour of streaming per clip, as an occasional tool rather than a default output format.</p></div>
+      <div><h3>Default to text, and treat image and video generation as a deliberate choice</h3><p>This is the highest-leverage setting, because the gap between task types spans one to three orders of magnitude, not a few percent. Save image generation for when a real image is the point of the assignment, and treat video generation &mdash; which can cost as much as an hour of streaming per clip, sometimes far more &mdash; as an occasional tool rather than a default output format.</p></div>
     </div>
     <div class="watchitem">
       <div class="num advice">3</div>
-      <div><h3>Use the smallest model that actually does the job</h3><p>Most chatbot platforms let you pick a lighter or faster model (sometimes labeled "mini," "flash," "instant," or similar) alongside their flagship one. Lighter models can use an order of magnitude less energy per query, and for routine tasks &mdash; drafting an email, summarizing a short passage &mdash; they're often just as good.</p></div>
+      <div><h3>Use the lightest model that actually does the job</h3><p>Most chatbot platforms offer a lighter or faster option (sometimes labeled "mini," "flash," "instant," or similar) alongside their flagship model. These generally use less energy per query, and for routine tasks &mdash; drafting an email, summarizing a short passage &mdash; they're often good enough. No independent, cross-provider ranking of exactly how much lighter models save currently exists, so treat "generally less" as the honest claim rather than a specific multiplier.</p></div>
     </div>
     <div class="watchitem">
       <div class="num advice">4</div>
-      <div><h3>Write a better prompt instead of sending five worse ones</h3><p>Every follow-up ("no, make it shorter," "try again") is a full additional query. A little upfront thought about what you actually want, especially for longer or more complex requests, usually costs less energy than iterating your way there.</p></div>
+      <div><h3>Think before you iterate</h3><p>Every follow-up message is a separate query, and long conversations mean some of the earlier exchange gets reprocessed each time too, though exactly how much depends on the platform's caching, which isn't public information. A little upfront thought about what you actually want usually beats sending five rough attempts &mdash; though not by a fixed or guaranteed amount.</p></div>
     </div>
     <div class="watchitem">
       <div class="num advice">5</div>
-      <div><h3>Turn off AI features you're not actively using</h3><p>Auto-summarize, always-on writing suggestions, and AI search overviews all run whether or not you asked for that specific result. Most can be disabled in settings, which removes the cost of queries you never chose to make.</p></div>
+      <div><h3>Turn off the AI features you can actually turn off</h3><p>Auto-summarize and always-on writing suggestions can usually be disabled in settings, which does stop that specific computation. Search AI overviews are a partial exception: Google's own help documentation says AI Overviews can't be fully disabled as a core Search feature, and its "Web" filter changes what's displayed without necessarily stopping the underlying computation. Check the specific product's documentation rather than assuming a toggle exists.</p></div>
     </div>
     <p style="margin-top:18px">None of these require becoming an expert, and none require giving up AI tools. They're the same category of habit as turning off lights in an empty room &mdash; not because any one instance matters much, but because the habit is what scales.</p>
   </section>
 
   <section id="watch">
     <div class="kicker"><span class="idx">07</span><h2>What's actually worth watching</h2></div>
-    <p>Ranked from the smallest lever to the biggest one. If you only have energy to think about one or two of these, start from the bottom.</p>
+    <p>Roughly ordered from the smallest lever to the biggest one. If you only have energy to think about one or two, start from the bottom.</p>
     <div class="watchitem">
       <div class="num">1</div>
-      <div><h3>Which task, not just how many prompts</h3><p>The gap between a short text answer and a generated video isn't 2&times; or 5&times; &mdash; it's 200&ndash;1,000&times;. A classroom norm of "text first, image or video only when it adds real value" does more than any amount of prompt-counting.</p></div>
+      <div><h3>Which task, not just how many prompts</h3><p>The gap between a short text answer and a generated video isn't 2&times; or 5&times; &mdash; using this page's own figures, it runs from roughly 200&times; to well over a thousand times. A classroom norm of "text first, image or video only when it adds real value" does more than any amount of prompt-counting.</p></div>
     </div>
     <div class="watchitem">
       <div class="num">2</div>
-      <div><h3>The rebound effect</h3><p>Every efficiency gain in this space has historically been followed by more total use, not less. That means "the new model is more efficient" is not, on its own, a reason to expect AI's total footprint to shrink.</p></div>
+      <div><h3>The rebound effect</h3><p>Efficiency gains lower the cost of each query, which tends to encourage more use &mdash; that's the logic behind the rebound effect, or Jevons Paradox. It doesn't automatically follow that any specific improvement will increase total use, but it does mean "the new model is more efficient" is not, on its own, a reliable reason to expect AI's total footprint to shrink.</p></div>
     </div>
     <div class="watchitem">
       <div class="num">3</div>
-      <div><h3>Where the data center sits</h3><p>The same electricity has wildly different water and land costs depending on the grid it comes from. A data center on a hydro-heavy grid can have a tiny carbon footprint and a large water footprint, or the reverse on a coal-heavy grid. There is no location that's simply "clean."</p></div>
+      <div><h3>Where the data center sits</h3><p>The same electricity has different water and land costs depending on the grid it comes from. A data center on a hydro-heavy grid can pair a tiny carbon footprint with a large water footprint; a coal-heavy grid often raises the carbon side without necessarily lowering the water side, since thermal power plants use substantial cooling water too. There's no location that's simply "clean" on every dimension at once.</p></div>
     </div>
     <div class="watchitem">
       <div class="num">4</div>
-      <div><h3>Almost no company discloses real numbers</h3><p>OpenAI, Google, and Anthropic all treat per-query energy use as a trade secret. Every figure in this briefing, including the companies' own occasional disclosures, is a third-party estimate or a partial release. That opacity is arguably the biggest single problem &mdash; it's hard to govern what isn't measured.</p></div>
+      <div><h3>Disclosure is incomplete, not absent</h3><p>OpenAI and Anthropic have never published a per-query energy or carbon figure. Google and Mistral both have, for specific workloads &mdash; Google for a median Gemini text prompt, Mistral for one 400-token response. That's real progress, but the two use different accounting methods, cover different tasks, and can't yet be meaningfully compared to each other. Incomplete and inconsistent disclosure, not total silence, is the more accurate complaint &mdash; and it's still enough to make independent verification hard.</p></div>
     </div>
     <div class="watchitem">
       <div class="num">5</div>
-      <div><h3>Who gets the infrastructure and who doesn't</h3><p>Only 32 countries, about 16% of them, host AI-specialized data centers at all, and 90% of that capacity sits in just the US and China. The environmental cost and the economic benefit of AI infrastructure don't land on the same communities. For a global classroom conversation, this is often the more consequential inequity than the energy math itself.</p></div>
+      <div><h3>Who gets the infrastructure and who doesn't</h3><p>As of the UN University's 2025 data, only 32 countries host AI-specialized data centers at all, and about 90% of that capacity sits in the US and China. The environmental cost and the economic benefit of AI infrastructure don't land on the same communities. For a global classroom conversation, this is often the more consequential inequity than the energy math itself.</p></div>
     </div>
   </section>
 
   <section id="discussion">
     <div class="kicker"><span class="idx">08</span><h2>Questions for a staff meeting</h2></div>
+    <p>Four different questions tend to get flattened into one debate: how much energy a specific task uses, how large a provider's aggregate footprint is, what burden lands on host communities, and whether a given use is worth it educationally. These questions try to keep them separate.</p>
     <ol class="discuss">
-      <li><span class="qn">01</span><span>If a single prompt costs almost nothing but our building's AI use adds up to something real, where's the right place to set a norm &mdash; the individual prompt, or the tool defaults we choose as a school?</span></li>
-      <li><span class="qn">02</span><span>Does it change anything to know that image and video generation cost 10&ndash;1,000&times; more than text? Should that shape which AI tools we adopt for which assignments?</span></li>
-      <li><span class="qn">03</span><span>We ask students to cite sources carefully. Should we hold "AI uses 10&times; the energy of a search" and similarly popular claims to the same standard before repeating them in class?</span></li>
-      <li><span class="qn">04</span><span>If neither "AI is basically free" nor "AI is a climate disaster" survives close reading, what's the version of this conversation we actually want students having?</span></li>
+      <li><span class="qn">01</span><span>A single prompt's footprint is small, but a school's aggregate use adds up to something measurable. Where should a policy actually target &mdash; the individual prompt, the tool defaults the school chooses, or something else entirely?</span></li>
+      <li><span class="qn">02</span><span>Image and video generation cost far more energy per use than text. Does that change which tools you'd pick for which assignments, or is educational value the deciding factor either way?</span></li>
+      <li><span class="qn">03</span><span>This page corrected several of its own claims after outside review. What would it take for a number already circulating in your building to get the same scrutiny before it's repeated to students?</span></li>
+      <li><span class="qn">04</span><span>Set the energy question aside for a moment: does a specific classroom use of AI deliver enough educational value to justify whatever its footprint turns out to be, compared to the alternative you'd otherwise use?</span></li>
     </ol>
   </section>
 
   <section id="sources">
     <div class="kicker"><span class="idx">09</span><h2>Sources</h2></div>
-    <p>Graded roughly by how much independent verification stands behind each one. This briefing leans hardest on the sources marked <span class="grade strong">strong</span> &mdash; primary data or investigative reporting with named methodology, rather than secondhand summary.</p>
+    <p>Tags describe the <em>type</em> of evidence behind each source &mdash; a company's own measurement, an independent benchmark, a modeled estimate, or commentary &mdash; not a verdict on whether it's right. Read each note for the specific limitation to watch for; institutional affiliation, a DOI, or agreement with this page's conclusions don't by themselves establish that a number is correct.</p>
     <div class="srctable">
-      <div class="srcrow"><div class="name"><a href="https://www.iea.org/reports/energy-and-ai" target="_blank" rel="noopener">International Energy Agency, <em>Energy and AI</em> (2025)</a><span class="grade strong">strong</span></div><div class="note">The most authoritative single document on this topic. An intergovernmental agency's own modeling of data-center demand through 2035, including the finding that AI's own emissions and AI-enabled efficiency gains elsewhere are both real, and neither cancels the other out.</div></div>
-      <div class="srcrow"><div class="name"><a href="https://www.iea.org/commentaries/the-carbon-footprint-of-streaming-video-fact-checking-the-headlines" target="_blank" rel="noopener">IEA, "The carbon footprint of streaming video: fact-checking the headlines" (2020)</a><span class="grade strong">strong</span></div><div class="note">The source of the streaming-video figure in the comparison chart, and a genuinely useful precedent: a viral "30 minutes of Netflix = 4 miles of driving" claim that turned out to be overstated by roughly 90&times; once someone checked the underlying assumptions. The AI energy debate is arguably having the same fight right now.</div></div>
-      <div class="srcrow"><div class="name"><a href="https://cloud.google.com/blog/products/infrastructure/measuring-the-environmental-impact-of-ai-inference" target="_blank" rel="noopener">Vahdat &amp; Dean (Google), "How much energy does Google's AI use? We did the math" (2025)</a><span class="grade strong">strong</span></div><div class="note">The primary source for the 0.24 Wh Gemini figure used throughout this briefing, with a published technical methodology. It's also the company measuring its own homework, so treat the efficiency-gain claims as self-reported.</div></div>
-      <div class="srcrow"><div class="name"><a href="https://epoch.ai/gradient-updates/how-much-energy-does-chatgpt-use" target="_blank" rel="noopener">Josh You (Epoch AI), "How much energy does ChatGPT use?" (2025)</a><span class="grade strong">strong</span></div><div class="note">An independent research group's estimate, and the origin of the widely repeated 0.3 Wh / 1,080-joule ChatGPT figure. Explicit about its own uncertainty.</div></div>
-      <div class="srcrow"><div class="name">de Vries, A., "The growing energy footprint of artificial intelligence," <em>Joule</em> (2023); see also <a href="https://www.nature.com/articles/d41586-025-00616-z" target="_blank" rel="noopener">Nature's 2025 news feature</a> on the same transparency gap<span class="grade strong">strong</span></div><div class="note">The peer-reviewed paper behind most "AI could use as much electricity as a whole country" comparisons. The Nature piece is paywalled beyond its abstract, but is real science journalism, not a blog.</div></div>
-      <div class="srcrow"><div class="name"><a href="https://ml.energy/leaderboard" target="_blank" rel="noopener">ML.ENERGY Leaderboard, University of Michigan</a><span class="grade strong">strong</span></div><div class="note">An open, continuously updated set of direct hardware measurements (not estimates) of energy use across dozens of AI models, run by the same academic group MIT Technology Review worked with.</div></div>
-      <div class="srcrow"><div class="name">Our World in Data, "Which form of transport has the smallest carbon footprint?" (Ritchie, 2023) and "The carbon footprint of foods" (Ritchie, 2020, based on Poore &amp; Nemecek, <em>Science</em>, 2018)<span class="grade strong">strong</span></div><div class="note">The methodology behind the car, flight, and beef comparisons in the calculator below. Both trace back to peer-reviewed or government-audited data, not blog-level estimates.</div></div>
-      <div class="srcrow"><div class="name"><a href="https://www.technologyreview.com/2025/05/20/1116327/ai-energy-usage-climate-footprint-big-tech/" target="_blank" rel="noopener">MIT Technology Review, "We did the math on AI's energy footprint" (2025)</a><span class="grade strong">strong</span></div><div class="note">Original investigative reporting with named researchers, measured (not estimated secondhand) energy figures for open models, and explicit uncertainty ranges.</div></div>
-      <div class="srcrow"><div class="name">UN University (UNU-INWEH), <em>Environmental Cost of AI's Energy Use</em> (2026)<span class="grade strong">strong</span></div><div class="note">Named authors at a UN research institute, full methodology and citations, published with a DOI. The most comprehensive single source here, and the one this briefing's carbon/water/land figures mostly draw from.</div></div>
-      <div class="srcrow"><div class="name"><a href="https://andymasley.com/writing/whats-the-full-hidden-climate-cost/" target="_blank" rel="noopener">Andy Masley, "What's the full 'hidden' climate cost of a ChatGPT prompt?" (2025)</a><span class="grade mixed">mixed</span></div><div class="note">Transparent, well-sourced math &mdash; but written by an outspoken advocate for the position that AI use is not an environmental problem. Useful for the arithmetic, read with that stance in mind.</div></div>
-      <div class="srcrow"><div class="name"><a href="https://www.datawrapper.de/blog/ai-energy-usage" target="_blank" rel="noopener">Datawrapper Blog, "How much energy are you using on AI?" (2025)</a><span class="grade mixed">mixed</span></div><div class="note">A reasonable summary, but repeats the unverified "10&times; a Google search" claim without challenging it.</div></div>
-      <div class="srcrow"><div class="name"><a href="https://paulbradshaw.medium.com/how-to-reduce-the-environmental-impact-of-using-ai-a66bb7254e71" target="_blank" rel="noopener">Paul Bradshaw, "How to reduce the environmental impact of using AI" (2025)</a><span class="grade mixed">mixed</span></div><div class="note">Good practical roundup for classroom habits, but asserts a specific efficiency ranking between GPT-4o, Claude, and Llama that no cited source actually supports.</div></div>
-      <div class="srcrow"><div class="name">Chouksey et al., "The green paradox," <em>Global Environmental Change Advances</em> (2026)<span class="grade weak">weak</span></div><div class="note">Published in a peer-reviewed journal, but a short, loosely-edited piece by a team without energy-research backgrounds, mixing well-known statistics with at least one likely misattribution. Included for completeness, not as a source of specific numbers.</div></div>
+      <div class="srcrow"><div class="name"><a href="https://cloud.google.com/blog/products/infrastructure/measuring-the-environmental-impact-of-ai-inference" target="_blank" rel="noopener">Vahdat &amp; Dean (Google), "How much energy does Google's AI use? We did the math" (2025)</a><span class="grade strong">provider data</span></div><div class="note">The source of the 0.24 Wh Gemini figure, with a published <a href="https://arxiv.org/html/2508.15734v1" target="_blank" rel="noopener">technical methodology</a>. Google's own text says the data isn't independently verified and doesn't describe every prompt. It's also the company measuring its own homework.</div></div>
+      <div class="srcrow"><div class="name"><a href="https://epoch.ai/gradient-updates/how-much-energy-does-chatgpt-use" target="_blank" rel="noopener">Josh You (Epoch AI), "How much energy does ChatGPT use?" (2025)</a><span class="grade mixed">modeled estimate</span></div><div class="note">A modeled estimate for GPT-4o under stated assumptions, not a direct measurement. Also discusses long-input costs and caching, and critiques the provenance of the "10&times; a search" comparison.</div></div>
+      <div class="srcrow"><div class="name">Alex de Vries, "The growing energy footprint of artificial intelligence," <em>Joule</em> (2023) &mdash; <a href="https://asociace.ai/wp-content/uploads/2023/10/ai-spotreba.pdf" target="_blank" rel="noopener">accessible copy</a><span class="grade mixed">modeled estimate</span></div><div class="note">The actual, traceable source of the "10&times; a search" figure: about 2.9 Wh/request, from 564 MWh/day &divide; 195 million requests/day (a SemiAnalysis-derived assumption), compared against a 0.3 Wh search baseline. An earlier draft of this page wrongly called this estimate untraceable.</div></div>
+      <div class="srcrow"><div class="name"><a href="https://googleblog.blogspot.com/2009/01/powering-google-search.html" target="_blank" rel="noopener">Google, "Powering a Google search" (January 2009)</a><span class="grade strong">provider data</span></div><div class="note">The original source of the ~0.3 Wh/search figure still cited in 2025&ndash;2026 reports. It describes Google's infrastructure as it existed in 2009, not today.</div></div>
+      <div class="srcrow"><div class="name"><a href="https://www.iea.org/reports/key-questions-on-energy-and-ai/executive-summary" target="_blank" rel="noopener">IEA, <em>Key Questions on Energy and AI</em> (2026 update)</a><span class="grade strong">synthesis report</span></div><div class="note">Explicitly distinguishes simple text generation from reasoning, video, and agentic tasks, which it says can use hundreds to thousands of times more energy per query &mdash; the basis for this page's repeated caveat that its calculators only model ordinary short tasks.</div></div>
+      <div class="srcrow"><div class="name"><a href="https://www.iea.org/reports/energy-and-ai" target="_blank" rel="noopener">IEA, <em>Energy and AI</em> (2025)</a><span class="grade strong">synthesis report</span></div><div class="note">An intergovernmental agency's modeling of data-center demand through 2035, including the finding that AI's own emissions and AI-enabled efficiency gains elsewhere are both plausible, and neither is guaranteed to cancel the other out.</div></div>
+      <div class="srcrow"><div class="name"><a href="https://www.iea.org/commentaries/the-carbon-footprint-of-streaming-video-fact-checking-the-headlines" target="_blank" rel="noopener">IEA, "The carbon footprint of streaming video: fact-checking the headlines" (2020, covering 2019 data)</a><span class="grade strong">synthesis report</span></div><div class="note">Source of the streaming-video figure in the comparison chart, and the direct precedent for a viral overstated claim being corrected by roughly 90&times;. The 36 g/hour figure describes 2019 conditions specifically.</div></div>
+      <div class="srcrow"><div class="name"><a href="https://ml.energy/leaderboard" target="_blank" rel="noopener">ML.ENERGY Leaderboard, University of Michigan</a><span class="grade strong">independent benchmark</span></div><div class="note">An open, continuously updated set of direct hardware measurements across dozens of AI models and settings &mdash; the same academic group MIT Technology Review worked with. Its own video-generation numbers vary by hardware configuration, another reason this page treats video figures as a range.</div></div>
+      <div class="srcrow"><div class="name"><a href="https://arxiv.org/html/2311.16863v3" target="_blank" rel="noopener">Luccioni, Jernite &amp; Strubell, "Power Hungry Processing" (2023/2024), Table 2</a><span class="grade strong">independent benchmark</span></div><div class="note">Source of the ~2.9 Wh/image figure &mdash; an average across a specific set of tested open models, not a universal figure for current image-generation products, which vary considerably around it.</div></div>
+      <div class="srcrow"><div class="name">Our World in Data, "Which form of transport has the smallest carbon footprint?" (Ritchie, 2023) and "The carbon footprint of foods" (Ritchie, 2020, based on Poore &amp; Nemecek, <em>Science</em>, 2018)<span class="grade strong">independent benchmark</span></div><div class="note">Basis for the car, flight, and beef comparisons. The flight figure used here is specifically OWID's <em>domestic</em>-flight factor; the same article gives a different, lower figure for short-haul international flights, and this page previously blurred that distinction.</div></div>
+      <div class="srcrow"><div class="name"><a href="https://www.epa.gov/greenvehicles/greenhouse-gas-emissions-typical-passenger-vehicle" target="_blank" rel="noopener">EPA, "Greenhouse Gas Emissions from a Typical Passenger Vehicle"</a><span class="grade strong">provider data</span></div><div class="note">Source of the 400 g/mile driving figure used consistently across both calculators and the chart. It's a tailpipe estimate, not a full vehicle lifecycle footprint.</div></div>
+      <div class="srcrow"><div class="name"><a href="https://www.technologyreview.com/2025/05/20/1116327/ai-energy-usage-climate-footprint-big-tech/" target="_blank" rel="noopener">MIT Technology Review, "We did the math on AI's energy footprint" (2025)</a><span class="grade strong">investigative reporting</span></div><div class="note">Original reporting with named researchers, measured (not secondhand) energy figures for open models, and explicit uncertainty ranges.</div></div>
+      <div class="srcrow"><div class="name">UN University (UNU-INWEH), <a href="https://unu.edu/inweh/collection/environmental-cost-of-AIs-Enrgy-Use-Carbon-water-and-land-footprints" target="_blank" rel="noopener"><em>Environmental Cost of AI's Energy Use</em></a> (2026)<span class="grade strong">synthesis report</span></div><div class="note">Named authors at a UN research institute, full methodology and citations. Its GPT-5 training figures are explicitly a scaling projection, not measured data, and its 0.42 Wh text figure is a representative planning assumption, not (as an earlier draft of this page incorrectly claimed) an average weighted toward longer prompts.</div></div>
+      <div class="srcrow"><div class="name"><a href="https://mistral.ai/news/our-contribution-to-a-global-environmental-standard-for-ai/" target="_blank" rel="noopener">Mistral AI, environmental assessment of a 400-token response (2025)</a><span class="grade strong">provider data</span></div><div class="note">Reports about 1.14 g CO&#8322;e for a specific response &mdash; useful mainly as evidence that per-query disclosures now exist beyond Google's, and that different accounting methods make cross-provider comparison hard rather than easy.</div></div>
+      <div class="srcrow"><div class="name"><a href="https://aclanthology.org/P19-1355/" target="_blank" rel="noopener">Strubell, Ganesh &amp; McCallum, "Energy and Policy Considerations for Deep Learning in NLP" (2019)</a><span class="grade mixed">modeled estimate</span></div><div class="note">The original paper behind the widely misquoted "hundreds of thousands of kg CO&#8322;" figure, which described a neural-architecture-search process across many models, not one training run.</div></div>
+      <div class="srcrow"><div class="name"><a href="https://andymasley.com/writing/whats-the-full-hidden-climate-cost/" target="_blank" rel="noopener">Andy Masley, "What's the full 'hidden' climate cost of a ChatGPT prompt?" (2025)</a><span class="grade mixed">commentary</span></div><div class="note">Transparent, well-sourced math from an outspoken advocate for the position that ordinary AI use isn't an environmental problem. Useful for the arithmetic; read with that stance in mind.</div></div>
+      <div class="srcrow"><div class="name"><a href="https://www.datawrapper.de/blog/ai-energy-usage" target="_blank" rel="noopener">Datawrapper Blog, "How much energy are you using on AI?" (2025)</a><span class="grade mixed">commentary</span></div><div class="note">A reasonable summary that repeats the unverified "10&times; a Google search" claim without checking its provenance.</div></div>
+      <div class="srcrow"><div class="name"><a href="https://paulbradshaw.medium.com/how-to-reduce-the-environmental-impact-of-using-ai-a66bb7254e71" target="_blank" rel="noopener">Paul Bradshaw, "How to reduce the environmental impact of using AI" (2025)</a><span class="grade mixed">commentary</span></div><div class="note">Good practical roundup, but asserts a specific efficiency ranking between GPT-4o, Claude, and Llama that no cited source actually supports.</div></div>
+      <div class="srcrow"><div class="name"><a href="https://www.sciencedirect.com/science/article/pii/S2950138525000178" target="_blank" rel="noopener">Chouksey et al., "The green paradox," <em>Global Environmental Change Advances</em> (2026)</a><span class="grade weak">low-confidence synthesis</span></div><div class="note">Peer-reviewed, but a short piece by a team without energy-research backgrounds, mixing well-known statistics with at least one likely misattribution. Included for completeness, not as a source of specific numbers.</div></div>
     </div>
   </section>
 
   <section id="postscript" style="padding-top:40px;border-bottom:1px solid var(--line);padding-bottom:40px">
     <div class="kicker"><span class="idx" style="color:var(--sub)">P.S.</span><h2>What did making this page cost?</h2></div>
-    <p>You asked, so here's an honest attempt &mdash; using this page's own math against itself, and running into the exact same wall the rest of it describes.</p>
+    <p>You asked, so here's an attempt &mdash; and it runs straight into the same wall the rest of this page describes. There is no way to actually measure this.</p>
     <div class="consensus">
-      <div class="figure">15&ndash;550 <small>watt-hours, estimated</small></div>
-      <p style="margin:0">This conversation ran to roughly 55 separate AI exchanges by the time this sentence was written, counting every tool call, web fetch, and file edit along the way. Applying this page's own low-end figure (Google's measured 0.24 Wh per exchange) gives about 13 Wh. Applying the high end the UN University report reserves for long, complex, context-heavy queries (up to 10+ Wh each) gives closer to 550 Wh.</p>
+      <div class="figure">Unknown<small>this page's own energy cost, honestly</small></div>
+      <p style="margin:0">Anthropic hasn't published a per-query energy figure for Claude, so any number here is Claude estimating its own footprint using other companies' disclosed figures for different models &mdash; precisely the kind of comparison this page has spent nine sections asking you to be skeptical of. For what it's worth: this conversation ran to roughly 55 separate exchanges with the model, counting tool calls, web fetches, and file edits. That's not a count of model inferences &mdash; a single exchange can involve more than one internally, and whether long-context turns are cheaper than a fresh query depends on caching behavior that also isn't public. Multiplying that rough count by Google's disclosed 0.24 Wh gives about 13 Wh; multiplying it by the UN University's own upper reference point for long, complex queries (10+ Wh) gives roughly 550 Wh.</p>
       <div class="consensus-grid">
-        <div class="cell"><div class="v">~55</div><div class="l">Separate AI exchanges across this whole conversation, tool calls included</div></div>
-        <div class="cell"><div class="v">0.24&ndash;10+ Wh</div><div class="l">Range applied per exchange &mdash; this page's own measured floor to its own stated ceiling for heavy, long-context queries</div></div>
-        <div class="cell"><div class="v">~7&ndash;250 g CO&#8322;e</div><div class="l">Same range, converted at this page's 450 g/kWh grid assumption &mdash; between one AI image and one short AI video, on the chart above</div></div>
-        <div class="cell"><div class="v">Unverifiable</div><div class="l">Anthropic has never published a real per-query energy figure for Claude, so this whole estimate rests on someone else's disclosed numbers applied to a model that discloses none of its own</div></div>
+        <div class="cell"><div class="v">~55</div><div class="l">Rough exchange count for this conversation &mdash; not an inference count</div></div>
+        <div class="cell"><div class="v">0.24&ndash;10+ Wh</div><div class="l">Range borrowed from other companies' disclosed or modeled figures, applied to a model that discloses none of its own</div></div>
+        <div class="cell"><div class="v">13&ndash;550 Wh</div><div class="l">The resulting arithmetic span &mdash; a 40-fold spread, which is the actual finding here</div></div>
+        <div class="cell"><div class="v">Unknown</div><div class="l">The honest label. An earlier draft of this section claimed the true number was "almost certainly" near the high end; that claim wasn't supportable and has been removed</div></div>
       </div>
     </div>
-    <p style="margin-top:18px">The true number is almost certainly toward the high end. Unlike the short chatbot exchanges the underlying research actually measured, most of this conversation involved reading multi-thousand-word web pages, PDF extracts, and a growing HTML file back into context on nearly every turn &mdash; a meaningfully heavier workload than a typical prompt. This also doesn't count the separate, smaller energy cost of the web-fetch tool calls themselves, or this page's fair share of whatever it cost to train the model that wrote it. Treat this number exactly as skeptically as this page has been asking you to treat everyone else's.</p>
+    <p style="margin-top:18px">A 40-fold range doesn't pin much down, and that's the actual point: this page is not exempt from the transparency problem it spends its other nine sections describing. Treat this section as illustrative arithmetic, not an estimate.</p>
   </section>
 
-  <footer>Built for staff use and discussion. Figures are best current estimates, not guarantees &mdash; the underlying companies still don't publish their own numbers.</footer>
+  <footer>Built for staff use and discussion, and revised once against an independent accuracy review (see Sources). Figures are best current estimates, not guarantees &mdash; disclosures from the underlying companies remain incomplete and hard to compare, even where they exist.</footer>
 </div>
 
 <script>
@@ -475,7 +524,7 @@ footer{padding:30px 0 10px;color:var(--sub);font-size:.82rem}
     var totalWh = whText + whImage + whVideo;
     var kWh = totalWh / 1000;
     var kgCO2 = (totalWh * 0.45) / 1000; // 450 g/kWh
-    var miles = (kgCO2 * 1000) / 350; // 350 g CO2 per mile
+    var miles = (kgCO2 * 1000) / 400; // 400 g CO2/mile, EPA tailpipe estimate (matches personal calculator)
 
     document.getElementById('res-energy').textContent = kWh < 1 ? fmt(totalWh) + ' Wh' : fmt(kWh, 1) + ' kWh';
     document.getElementById('res-carbon').textContent = fmt(kgCO2, kgCO2 < 1 ? 2 : 1) + ' kg';
@@ -504,7 +553,7 @@ footer{padding:30px 0 10px;color:var(--sub);font-size:.82rem}
 
     var carMiles = gCO2 / 400;
     var flightMiles = gCO2 / 396;
-    var burgers = kgCO2 / 11;
+    var burgers = kgCO2 / 11.3;
 
     document.getElementById('res-p-car').textContent = fmt(carMiles, carMiles < 10 ? 1 : 0) + ' mi';
     document.getElementById('res-p-flight').textContent = fmt(flightMiles, flightMiles < 10 ? 1 : 0) + ' mi';
